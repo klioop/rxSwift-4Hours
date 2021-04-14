@@ -50,7 +50,7 @@ class MenuViewController: UIViewController {
         viewModel.totalPrice
 //            .scan(0, accumulator: +)
             .map { $0.currencyKR() }
-            .asDriver(onErrorJustReturn: "")
+            .asDriver(onErrorJustReturn: "") // asDriver 는 .catchErrorJustReturn 과 observOn 을 합친 sugar
             .drive(itemCountLabel.rx.text) // drive 는 main thread 에서 돌아감
 //            .subscribe(onNext: {
 //                self.totalPrice.text = $0
@@ -58,13 +58,13 @@ class MenuViewController: UIViewController {
             .disposed(by: disposeBag)
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let identifier = segue.identifier ?? ""
-        if identifier == "OrderViewController",
-            let orderVC = segue.destination as? OrderViewController {
-            // TODO: pass selected menus
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        let identifier = segue.identifier ?? ""
+//        if identifier == "OrderViewController",
+//            let orderVC = segue.destination as? OrderViewController {
+//            // TODO: pass selected menus
+//        }
+//    }
 
     func showAlert(_ title: String, _ message: String) {
         let alertVC = UIAlertController(title: title, message: message, preferredStyle: .alert)

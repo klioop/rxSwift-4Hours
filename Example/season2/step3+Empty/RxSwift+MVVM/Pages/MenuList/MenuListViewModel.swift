@@ -15,7 +15,7 @@ class MenuListViewModel {
     lazy var menuObservable = BehaviorRelay<[Menu]>(value: []) // BehaviorSubject needs an initial value, here []
     // Relay 는 subject 와 같지만 error 가 나도 끊어지지 않는다.
     
-    lazy var itemsCount = menuObservable.map{ $0.map{$0.count}.reduce(0, +) }
+    lazy var itemsCount = menuObservable.map{ $0.map{ $0.count }.reduce(0, +) } // first $0: [Menu], second $0: Menu
     lazy var totalPrice = menuObservable.map{
         $0.map{ $0.price * $0.count }.reduce(0, +)
     }
@@ -78,7 +78,7 @@ class MenuListViewModel {
             }
             .take(1)
             .subscribe(onNext: {
-                self.menuObservable.accept($0)
+                self.menuObservable.accept($0) // substitutes menuObservable.onNext($0)
             })
     }
     
